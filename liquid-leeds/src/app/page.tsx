@@ -2,6 +2,7 @@ import Image from "next/image";
 import Footer from "./Components/Footer/Footer";
 import Nav from "./Components/Nav/Nav";
 import Form from "./Components/Form/Form";
+import FormStepper from "./Components/Form/FormStepper";
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
         <div className="m-[4rem]">
 
         
-        <Form service={"test"}></Form>
+        <FormStepper></FormStepper>
         </div>
       </div>
       <Footer></Footer>
