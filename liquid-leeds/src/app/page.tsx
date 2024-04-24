@@ -5,19 +5,17 @@ import Form from "./Components/Form/Form";
 import FormStepper from "./Components/Form/FormStepper";
 
 export default function Home() {
-  return (
-    <div>
-      <Nav></Nav>
-      
-      <div className=" flex align-middle justify-center">
-        <p>home</p>
-        <div className="m-[4rem]">
+    return (
+        <div>
+            <Nav></Nav>
 
-        
-        <FormStepper></FormStepper>
+            <div className=" bg-white flex align-middle justify-center">
+                <p>home</p>
+                <div className="m-[4rem]">
+                    <FormStepper></FormStepper>
+                </div>
+            </div>
+            <Footer></Footer>
         </div>
-      </div>
-      <Footer></Footer>
-    </div>
-  );
+    );
 }

@@ -20,8 +20,7 @@ interface FormData {
         };
     };
     card: {
-        number: string;
-        cvc: string;
+        exelname: string;
         expDate: string;
         nameOnCard: string;
     };
@@ -39,12 +38,12 @@ const schema = yup
         cityFilter: yup.string(),
         city: yup.string().required("La Ciudad es requerida."),
         business: yup.string().required("El tipo de negocio es requerido."),
-        number: yup.string().required("El Número de la Tarjeta es requerido."),
+        exelname: yup.string().required("El Nobre del archivo es requerido."),
         nameOnCard: yup
             .string()
             .required("El Nombre de la Tarjeta es requerido."),
         expDate: yup.string().required("La Fecha de Expiración es requerida."),
-        cvc: yup.string().required("El Código de Seguridad es requerido."),
+        
     })
     .required();
 
@@ -101,15 +100,13 @@ export default function Checkout() {
         }
     };
     const checkThirdStage = async () => {
-        const numeroTarjeta = await trigger("number");
+        const numeroTarjeta = await trigger("exelname");
         const nombreTarjeta = await trigger("nameOnCard");
         const fechaExpiracion = await trigger("expDate");
-        const codigoSeguridad = await trigger("cvc");
         if (
             numeroTarjeta &&
             nombreTarjeta &&
-            fechaExpiracion &&
-            codigoSeguridad
+            fechaExpiracion
         ) {
             return true;
         } else {
@@ -133,8 +130,7 @@ export default function Checkout() {
                         },
                     },
                     card: {
-                        number: formData.number,
-                        cvc: formData.cvc,
+                        exelname: formData.exelname,
                         expDate: formData.expDate,
                         nameOnCard: formData.nameOnCard,
                     },
@@ -164,10 +160,10 @@ export default function Checkout() {
     };
 
     return (
-        <div className=" bg-white text-black flex justify-center align-middle">
+        <div className=" text-black flex justify-center align-middle">
             <div>
-                <div>
-                    <h2>Completa Datos de Pago</h2>
+                <div className=" text-center ">
+                    <h2 >Completa Datos de Pago</h2>
                     <div>
                         <HorizontalLinearAlternativeLabelStepper
                             activeStep={stage}
@@ -183,7 +179,7 @@ export default function Checkout() {
                                                 required: true,
                                             })}
                                             label="Nombre"
-                                            style={{ margin: "8px" }}
+                                            style={{ margin: "8px"}}
                                             error={!!errors?.name}
                                             helperText={errors?.name?.message}
                                         />
@@ -300,14 +296,14 @@ export default function Checkout() {
                                 <div>
                                     <div>
                                         <TextField
-                                            {...register("number", {
+                                            {...register("exelname", {
                                                 required: true,
                                             })}
                                             id="outlined-required"
-                                            label="Numero de tarjeta"
+                                            label="Nombre del exel"
                                             style={{ margin: "8px" }}
-                                            error={!!errors?.number}
-                                            helperText={errors?.number?.message}
+                                            error={!!errors?.exelname}
+                                            helperText={errors?.exelname?.message}
                                         />
 
                                         <TextField
@@ -343,20 +339,10 @@ export default function Checkout() {
                                             />
                                             <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                             <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                                linkedin
+                                                Web Scrapping
                                             </span>
                                         </label>
-                                        <TextField
-                                            {...register("cvc", {
-                                                required: true,
-                                            })}
-                                            id="outlined-password-input"
-                                            label="Codigo tarjeta"
-                                            type="password"
-                                            style={{ margin: "8px" }}
-                                            error={!!errors?.cvc}
-                                            helperText={errors?.cvc?.message}
-                                        />
+                                        
                                     </div>
                                     <div className="flex align-middle justify-center">
                                         <Button

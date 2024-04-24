@@ -17,12 +17,13 @@ interface HorizontalLinearAlternativeLabelStepperProps {
 const HorizontalLinearAlternativeLabelStepper: React.FC<HorizontalLinearAlternativeLabelStepperProps> =
     ({ activeStep }) => {
         const steps = [
-            "Personal Information",
-            "Delivery Information",
-            "Payment Information",
+            "Informacion Personal",
+            "Informacion de Busqueda",
+            "Generacion del Archivo",
         ];
 
         return (
+            <div className="p-[4rem]">
             <Box sx={{ width: "100%" }}>
                 <Stepper activeStep={activeStep} alternativeLabel>
                     {steps.map((label, index) => (
@@ -32,6 +33,7 @@ const HorizontalLinearAlternativeLabelStepper: React.FC<HorizontalLinearAlternat
                     ))}
                 </Stepper>
             </Box>
+            </div>
         );
     };
 
