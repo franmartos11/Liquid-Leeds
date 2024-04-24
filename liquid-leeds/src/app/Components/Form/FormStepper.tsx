@@ -39,7 +39,6 @@ const schema = yup
         cityFilter: yup.string(),
         city: yup.string().required("La Ciudad es requerida."),
         business: yup.string().required("El tipo de negocio es requerido."),
-        zipCode: yup.string().required("El Código Postal es requerido."),
         number: yup.string().required("El Número de la Tarjeta es requerido."),
         nameOnCard: yup
             .string()
@@ -91,13 +90,12 @@ export default function Checkout() {
         const departamentoIsValid = await trigger("cityFilter");
         const ciudadIsValid = await trigger("city");
         const provinciaIsValid = await trigger("business");
-        const codigoPostalIsValid = await trigger("zipCode");
+
         if (
             direccionIsValid &&
             departamentoIsValid &&
             ciudadIsValid &&
-            provinciaIsValid &&
-            codigoPostalIsValid
+            provinciaIsValid 
         ) {
             setStage(2);
         }
@@ -219,13 +217,6 @@ export default function Checkout() {
                                     <div className="flex align-middle justify-center">
                                         <Button
                                             onClick={() =>
-                                                handleDecreaseStage()
-                                            }
-                                        >
-                                            Anterior
-                                        </Button>
-                                        <Button
-                                            onClick={() =>
                                                 handleIncreaseStage()
                                             }
                                         >
@@ -242,7 +233,7 @@ export default function Checkout() {
                                                 required: true,
                                             })}
                                             id="outlined-required"
-                                            label="Direccion"
+                                            label="Pais"
                                             style={{ margin: "8px" }}
                                             error={!!errors?.country}
                                             helperText={
@@ -255,7 +246,7 @@ export default function Checkout() {
                                                 required: false,
                                             })}
                                             id="outlined-required"
-                                            label="Departamento"
+                                            label="Filtro Localidad"
                                             style={{ margin: "8px" }}
                                             error={!!errors?.cityFilter}
                                             helperText={
@@ -268,7 +259,7 @@ export default function Checkout() {
                                                 required: true,
                                             })}
                                             id="outlined-required"
-                                            label="Ciudad"
+                                            label="Provincia"
                                             style={{ margin: "8px" }}
                                             error={!!errors?.city}
                                             helperText={errors?.city?.message}
@@ -279,22 +270,11 @@ export default function Checkout() {
                                                 required: true,
                                             })}
                                             id="outlined-required"
-                                            label="Provincia"
+                                            label="Tipo Negocio"
                                             style={{ margin: "8px" }}
                                             error={!!errors?.business}
-                                            helperText={errors?.business?.message}
-                                        />
-
-                                        <TextField
-                                            {...register("zipCode", {
-                                                required: true,
-                                            })}
-                                            id="outlined-required"
-                                            label="Codigo Postal"
-                                            style={{ margin: "8px" }}
-                                            error={!!errors?.zipCode}
                                             helperText={
-                                                errors?.zipCode?.message
+                                                errors?.business?.message
                                             }
                                         />
                                     </div>
@@ -380,7 +360,7 @@ export default function Checkout() {
                                             type="submit"
                                             onClick={() => console.log("aaaa")}
                                         >
-                                            Realizar Pago
+                                            Generar Documento
                                         </Button>
                                     </div>
                                 </div>
