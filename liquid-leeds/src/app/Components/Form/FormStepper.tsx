@@ -1,5 +1,5 @@
 "use client";
-import { Button, Snackbar, TextField } from "@mui/material";
+import { Button, Checkbox, Snackbar, TextField } from "@mui/material";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,8 +21,7 @@ interface FormData {
     };
     card: {
         exelname: string;
-        expDate: string;
-        nameOnCard: string;
+        webScraping: boolean;   
     };
 }
 
@@ -39,11 +38,9 @@ const schema = yup
         city: yup.string().required("La Ciudad es requerida."),
         business: yup.string().required("El tipo de negocio es requerido."),
         exelname: yup.string().required("El Nobre del archivo es requerido."),
-        nameOnCard: yup
+        webScraping: yup
             .string()
-            .required("El Nombre de la Tarjeta es requerido."),
-        expDate: yup.string().required("La Fecha de Expiración es requerida."),
-        
+            .required("El Nobre del archivo es requerido."),
     })
     .required();
 
@@ -101,13 +98,8 @@ export default function Checkout() {
     };
     const checkThirdStage = async () => {
         const numeroTarjeta = await trigger("exelname");
-        const nombreTarjeta = await trigger("nameOnCard");
-        const fechaExpiracion = await trigger("expDate");
-        if (
-            numeroTarjeta &&
-            nombreTarjeta &&
-            fechaExpiracion
-        ) {
+        const webScraping = await trigger("webScraping");
+        if (numeroTarjeta && webScraping) {
             return true;
         } else {
             return false;
@@ -131,8 +123,7 @@ export default function Checkout() {
                     },
                     card: {
                         exelname: formData.exelname,
-                        expDate: formData.expDate,
-                        nameOnCard: formData.nameOnCard,
+                        webScraping: formData.webScraping,
                     },
                 };
                 console.log(formattedData);
@@ -163,7 +154,7 @@ export default function Checkout() {
         <div className=" text-black flex justify-center align-middle">
             <div>
                 <div className=" text-center ">
-                    <h2 >Completa Datos de Pago</h2>
+                    <h2>Generador de Leeds</h2>
                     <div>
                         <HorizontalLinearAlternativeLabelStepper
                             activeStep={stage}
@@ -179,7 +170,7 @@ export default function Checkout() {
                                                 required: true,
                                             })}
                                             label="Nombre"
-                                            style={{ margin: "8px"}}
+                                            style={{ margin: "8px" }}
                                             error={!!errors?.name}
                                             helperText={errors?.name?.message}
                                         />
@@ -294,7 +285,7 @@ export default function Checkout() {
                             )}
                             {stage === 2 && (
                                 <div>
-                                    <div>
+                                    <div className=" flex align-middle justify-center">
                                         <TextField
                                             {...register("exelname", {
                                                 required: true,
@@ -303,46 +294,23 @@ export default function Checkout() {
                                             label="Nombre del exel"
                                             style={{ margin: "8px" }}
                                             error={!!errors?.exelname}
-                                            helperText={errors?.exelname?.message}
-                                        />
-
-                                        <TextField
-                                            {...register("nameOnCard", {
-                                                required: true,
-                                            })}
-                                            id="outlined-required"
-                                            label="Nombre en tarjeta"
-                                            style={{ margin: "8px" }}
-                                            error={!!errors?.nameOnCard}
                                             helperText={
-                                                errors?.nameOnCard?.message
+                                                errors?.exelname?.message
                                             }
                                         />
 
-                                        <TextField
-                                            {...register("expDate", {
-                                                required: true,
-                                            })}
-                                            id="outlined-required"
-                                            label="Fecha de expiración"
-                                            style={{ margin: "8px" }}
-                                            error={!!errors?.expDate}
-                                            helperText={
-                                                errors?.expDate?.message
-                                            }
-                                        />
-                                        <label className="inline-flex items-center mb-5 cursor-pointer">
+                                        <label className="inline-flex items-center cursor-pointer">
                                             <input
                                                 type="checkbox"
-                                                value=""
+                                                {...register("webScraping")} // Registra el estado del checkbox
                                                 className="sr-only peer"
                                             />
-                                            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                                            <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300  rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                            <span className="ms-3  font-medium text-gray-900">
                                                 Web Scrapping
                                             </span>
                                         </label>
-                                        
+
                                     </div>
                                     <div className="flex align-middle justify-center">
                                         <Button
