@@ -10,7 +10,7 @@ export default function Home() {
             <Nav></Nav>
 
             <div className=" bg-white flex align-middle justify-center">
-                <p>home</p>
+                
                 <div className="m-[4rem]">
                     <FormStepper></FormStepper>
                 </div>

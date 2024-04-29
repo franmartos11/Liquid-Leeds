@@ -3,16 +3,11 @@ import Link from "next/link";
 
 export default function () {
     return (
-        <div className="relative   px-4 pt-20 bg-black">
+        <div className="relative  bg-black">
             <hr className="h-px mb-[5rem] mt-[-5.5rem] bg-black"></hr>
             <div className="absolute -top-10 left-1/2 h-16 w-16 -translate-x-1/2 rounded-xl border-4 border-sky-500 bg-black p-1">
                 <Link title="link" href={"#top-page"}>
-                    <img
-                        className="h-full object-contain"
-                        src=""
-                        alt="aspa logo"
-                        title="aspa logo"
-                    />
+                    
                 </Link>
             </div>
             <nav

@@ -23,12 +23,7 @@ export default function Nav() {
                     href="/"
                     className="flex items-center space-x-3 rtl:space-x-reverse"
                 >
-                    <img
-                        className="h-[5rem]"
-                        src="/aspafulllogo.webp"
-                        alt="Logo Aspa"
-                        title="Logo Aspa"
-                    />
+                    <p>LIQUID LEEDS</p>
                 </Link>
                 <button
                     onClick={toggleMenu}
